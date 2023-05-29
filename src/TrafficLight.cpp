@@ -13,7 +13,8 @@ template <typename T> T MessageQueue<T>::receive() {
   // Wait until the condition is satisfied, i.e., the queue is not empty
   _condition.wait(lock, [this]() { return !_queue.empty(); });
   T item = std::move(_queue.front());
-  _queue.pop_front();
+  // _queue.pop_front();
+  _queue.clear(); // More efficient
   return item;
 }
 
